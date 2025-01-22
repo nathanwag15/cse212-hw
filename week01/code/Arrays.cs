@@ -12,8 +12,21 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        // Create an array that is the length of the provided length for the result
+        // Create a variable to hold the factor we will be using to check. 
+        // Create a loop starting at the number provided and ending once the array length is equal to the provided length. 
+        // each increment should have one added to it and multiplied against the number. 
+        // add to the list and increment.
+        var result = new double[length];
+        
+        // Create a loop starting at the number provided and ending once the array length is equal to the provided length. 
+        for (int i = 0; i <=length - 1; i++)
+        {           
+            result[i] = number * (i + 1);
+        }
+        
 
-        return []; // replace this return statement with your own
+        return result; 
     }
 
     /// <summary>
@@ -29,5 +42,18 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // Using the provided amount create a for loop.
+        // create a variable that will save the value of the last element in the list. 
+        // Use RemoveAt to pull the last item in the list. 
+        // Then use Insert to add the new number to index 0. 
+
+        for (int i = 0; i < amount; i++)
+        {
+            int lastItem = data[^1];
+            data.RemoveAt(data.Count - 1);
+            data.Insert(0,lastItem);
+        }
+
     }
 }
