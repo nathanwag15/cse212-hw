@@ -14,12 +14,14 @@ public class PersonQueue
     public void Enqueue(Person person)
     {
         _queue.Insert(0, person);
+        // System.Diagnostics.Debug.WriteLine(person);
     }
 
     public Person Dequeue()
     {
-        var person = _queue[0];
-        _queue.RemoveAt(0);
+        var person = _queue[_queue.Count()-1];
+        // System.Diagnostics.Debug.WriteLine(person);
+        _queue.RemoveAt(_queue.Count()-1);
         return person;
     }
 
