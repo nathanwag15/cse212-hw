@@ -1,3 +1,6 @@
+using System.ComponentModel;
+
+
 /// <summary>
 /// Defines a maze using a dictionary. The dictionary is provided by the
 /// user when the Maze object is created. The dictionary will contain the
@@ -32,7 +35,17 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        bool[] ValueList = _mazeMap[(_currX, _currY)];
+
+        if (ValueList[0]) {
+            if (_currX == 6) {
+                throw new InvalidOperationException("Can't go that way!");
+            } else {
+                _currX ++;
+            }
+        } else {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -41,7 +54,17 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        bool[] ValueList = _mazeMap[(_currX, _currY)];
+
+        if (ValueList[1]) {
+            if (_currX == 1) {
+                throw new InvalidOperationException("Can't go that way!");
+            } else {
+                _currX --;
+            }
+        } else {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -50,7 +73,17 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        bool[] ValueList = _mazeMap[(_currX, _currY)];
+
+        if (ValueList[2]) {
+            if (_currY == 6) {
+                throw new InvalidOperationException("Can't go that way!");
+            } else {
+                _currY--;
+            }
+        } else {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -59,7 +92,18 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        bool[] ValueList = _mazeMap[(_currX, _currY)];
+
+        if (ValueList[3]) {
+            if (_currY == 6) {
+                throw new InvalidOperationException("Can't go that way!");
+            } else {
+                _currY++;
+            }
+            
+        } else {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     public string GetStatus()
