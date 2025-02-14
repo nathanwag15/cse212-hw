@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Transactions;
 
 public class LinkedList : IEnumerable<int>
 {
@@ -27,18 +28,32 @@ public class LinkedList : IEnumerable<int>
         }
     }
 
-    /// <summary>
-    /// Insert a new node at the back (i.e. the tail) of the linked list.
-    /// </summary>
+    // / <summary>
+    // / Insert a new node at the back (i.e. the tail) of the linked list.
+    // / </summary>
     public void InsertTail(int value)
     {
-        // TODO Problem 1
+
+        Node newNode = new(value);
+
+        if (_tail is null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+
+        else 
+        {
+            newNode.Prev = _tail;
+            _tail.Next = newNode;
+            _tail = newNode; 
+        }
     }
 
 
-    /// <summary>
-    /// Remove the first node (i.e. the head) of the linked list.
-    /// </summary>
+    // / <summary>
+    // / Remove the first node (i.e. the head) of the linked list.
+    // / </summary>
     public void RemoveHead()
     {
         // If the list has only one item in it, then set head and tail 
@@ -59,17 +74,29 @@ public class LinkedList : IEnumerable<int>
     }
 
 
-    /// <summary>
-    /// Remove the last node (i.e. the tail) of the linked list.
-    /// </summary>
+    // / <summary>
+    // / Remove the last node (i.e. the tail) of the linked list.
+    // / </summary>
     public void RemoveTail()
     {
-        // TODO Problem 2
+        if (_tail == null)
+            return;
+
+        if (_tail == _head) // Only one node in the list
+        {
+            _head = null;
+            _tail = null;
+        }
+        else
+        {
+            _tail = _tail.Prev; // Move tail backward
+            _tail!.Next = null; // Disconnect the old tail
+        }
     }
 
-    /// <summary>
-    /// Insert 'newValue' after the first occurrence of 'value' in the linked list.
-    /// </summary>
+    // / <summary>
+    // / Insert 'newValue' after the first occurrence of 'value' in the linked list.
+    // / </summary>
     public void InsertAfter(int value, int newValue)
     {
         // Search for the node that matches 'value' by starting at the 
@@ -108,7 +135,39 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void Remove(int value)
     {
-        // TODO Problem 3
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                if (curr == _head)
+                {
+                    _head = _head.Next; // Move head forward
+                    
+                    if (_head is not null) // Ensure there's still a node
+                        _head.Prev = null;
+                    else
+                        _tail = null; // List is now empty
+                }
+                else if (curr == _tail)
+                {
+                    _tail = _tail.Prev; // Move tail backward
+                    
+                    if (_tail is not null) // Ensure there's still a node
+                        _tail.Next = null;
+                    else
+                        _head = null; // List is now empty
+                }
+                else
+                {
+                    curr.Next!.Prev = curr.Prev;
+                    curr.Prev!.Next = curr.Next;
+                }
+
+                return; // Exit after first match is removed
+            }
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
@@ -116,7 +175,15 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void Replace(int oldValue, int newValue)
     {
-        // TODO Problem 4
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == oldValue)
+            {
+                curr.Data = newValue;
+            }
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
@@ -146,8 +213,17 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public IEnumerable Reverse()
     {
-        // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        
+        Node? current = _tail;
+
+        
+        while (current != null)
+        {
+            
+            yield return current.Data;
+            
+            current = current.Prev;
+        }
     }
 
     public override string ToString()
