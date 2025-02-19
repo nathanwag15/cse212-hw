@@ -153,31 +153,7 @@ public static class Recursion
     /// Use recursion to insert all paths that start at (0,0) and end at the
     /// 'end' square into the results list.
     /// </summary>
-    public static void SolveMaze(List<string> results, Maze maze, int x = 0, int y = 0, List<(int, int)>? currPath = null)
-    {
-        if (currPath == null)
-        currPath = new List<(int, int)>();
-    
-        // Base case: If we reached the end, add the path to results
-        if (maze.IsEnd(x, y))
-        {
-            results.Add(string.Join(" -> ", currPath));
-            return;
-        }
-        
-        // Possible moves: Right, Down, Left, Up
-        var directions = new (int, int)[] { (1, 0), (0, 1), (-1, 0), (0, -1) };
-        
-        foreach (var (dx, dy) in directions)
-        {
-            int newX = x + dx, newY = y + dy;
-            
-            if (maze.IsValidMove(newX, newY, currPath))
-            {
-                currPath.Add((newX, newY));  // Add new position to path
-                SolveMaze(results, maze, newX, newY, currPath);  // Recur
-                currPath.RemoveAt(currPath.Count - 1);  // Backtrack
-            }
-        }
-    }
+    // public static void SolveMaze(List<string> results, Maze maze, int x = 0, int y = 0, List<(int, int)>? currPath = null)
+    // {
+    // }
 }
